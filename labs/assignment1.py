@@ -29,6 +29,4 @@ def compute_probab_by_brute_force():
     print("Probab with brute force: "+ str(number_of_coprimes/count))
 
 
-
-
 compute_probab()
