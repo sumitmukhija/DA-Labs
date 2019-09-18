@@ -8,10 +8,10 @@ plot(as.party((DT_Model)))
 print(DT_Model)
 
 Target = ifelse(RESPONSE == 1, 'Y', 'N')
-New_Data <- data.frame(Data, Target)
-str(New_Data)
+Data <- data.frame(Data, Target)
+str(Data)
 
 New_Data = Data[, -32]
-DT_Model_New <- rpart(Target~., data=New_Data, control=rpart.control(minsplit=60, minbucket=30, maxdepth=4 ))
+DT_Model_New <- rpart(Target~., data=New_Data, control=rpart.control(minsplit=60, minbucket=30, maxdepth=16 ))
 plot(as.party((DT_Model_New)))
 print(DT_Model_New)
