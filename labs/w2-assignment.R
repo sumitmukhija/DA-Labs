@@ -15,3 +15,13 @@ New_Data = Data[, -32]
 DT_Model_New <- rpart(Target~., data=New_Data, control=rpart.control(minsplit=60, minbucket=30, maxdepth=16 ))
 plot(as.party((DT_Model_New)))
 print(DT_Model_New)
+
+DT_Model_New <- rpart(Target~., data = New_Data, control = rpart.control())
+plot(as.party(DT_Model_New))
+
+print(DT_Model_New$cptable)
+
+opt <- which.min(DT_Model_New$cptable[,"xerror"])
+cp <- DT_Model_New$cptable[opt, "CP"]
+DT_Model_Pruned <- prune(DT_Model_New, cp=cp)
+plot(as.party(DT_Model_Pruned))
