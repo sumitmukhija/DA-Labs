@@ -8,6 +8,10 @@ df <- read_excel("/users/pgrad/mukhijas/Desktop/DA-Labs/labs/data/DT-W4.xlsx")
 # Removing ID column
 df = subset(df, select = -c(ID))
 
+Response = ifelse(Response==1,'Y','N')
+df = subset(df, select = -c(Response))
+df <- data.frame(df, Response)
+
 
 # Data with all X,Y and Groups
 df_with_X_and_Y_all_groups = data.frame(df)
@@ -74,3 +78,9 @@ minError <- which.min(model$cptable [, "xerror"])
 cp <- model$cptable [minError,"CP"]
 Model_Pruned <- prune(model, cp=cp)
 plot(as.party(Model_Pruned))
+
+#Accuracy 
+predictions = predict(Model_Pruned, df, type = 'class')
+cm = table(df$Response, predictions)
+accuracy = sum(diag(cm))/sum(cm)
+print(accuracy)
